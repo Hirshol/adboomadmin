@@ -12,6 +12,9 @@
             <?php foreach($portals as $portal): ?>
             <div data-role="collapsible" data-inset="true">
                 <h4 class="portalBar" data-id="<?=$portal->id; ?>"><?=$portal->name ?><span style="font-size: .8em; float: right"><?='(' .$portal->url . ')'; ?></span></h4>
+                <span>
+                    <a href="#" class="ui-btn ui-btn-inline">Add Account</a>
+                </span>
                 <div id="portalDiv<?=$portal->id; ?>" style="padding-left: 10px; ">List of Portal Accounts</div>
             </div>
             <?php endforeach; ?>

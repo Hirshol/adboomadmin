@@ -32,4 +32,20 @@ class ScraperController extends BaseController {
         $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
         $this->layout = View::make('scraper.accounts', array('accounts' => $accounts));
     }
+    
+    /**
+     * Retrieves the html display form for adding an account.
+     *
+     */
+    public function getAddAccount() {
+    
+    }
+    
+    /**
+     * Performs the validation and updates the database.
+     */
+    public function postAddAccount() {
+    
+    }
+    
 }
