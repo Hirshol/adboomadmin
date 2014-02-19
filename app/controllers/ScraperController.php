@@ -27,6 +27,9 @@ class ScraperController extends BaseController {
         $this->layout->content = View::make('scraper.home', array('portals' => $portals));
     }
     
+    /**
+     * Gets all account for a portal
+     */
     public function getAccounts() {
         $id = $_REQUEST['id'];
         $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
@@ -34,11 +37,20 @@ class ScraperController extends BaseController {
     }
     
     /**
+     * Gets a single account
+     */
+    public function getAccount() {
+        $id = $_REQUEST['id'];
+        $account = DB::select('select * from portal_accounts where id = ?', array($id));
+        $this->layout = View::make('scraper.account', array('account' => $account[0]));
+    }
+    
+    /**
      * Retrieves the html display form for adding an account.
      *
      */
     public function getAddAccount() {
-    
+        die('addAccount');
     }
     
     /**
@@ -48,4 +60,10 @@ class ScraperController extends BaseController {
     
     }
     
+    /**
+     * This takes scraped data from our injected scraper and sends to processing.
+     */
+    public function postScrape() {
+        
+    }
 }

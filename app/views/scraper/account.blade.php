@@ -1,0 +1,12 @@
+<table>
+    <tbody>
+        <tr>
+            <td>Login</td>
+            <td><?=$account->uid?></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><?=$account->password?></td>
+            </tr>
+    </tbody>
+</table>
