@@ -29,6 +29,39 @@ class ScraperController extends BaseController {
     /**
      * Gets all account for a portal
      */
+    public function getPortalDetail() {
+        
+        $id = $_REQUEST['id'];
+        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
+        $this->layout = View::make('scraper.portalDetail', 
+                          array('accounts' => $accounts));
+        $this->layout->searchForm = View::make('scraper.portal.mymerchinfo');
+    }
+    
+    /**
+     * Updates portal search form parameters
+     */
+    public function getPortalSearchForm() {
+        $id = $_REQUEST['id'];
+        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
+        $this->layout = View::make('scraper.portalDetail', array('accounts' => $accounts));
+    }
+    
+    /**
+     * Updates portal search form parameters
+     */
+    public function postPortalSearchForm() {
+        //$id = $_REQUEST['id'];
+        $portalSearchParams = new PortalSearchParams();
+        $portalSearchParams->loadPortal('1');
+        
+        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
+        $this->layout = View::make('scraper.portalDetail', array('accounts' => $accounts));
+    }
+    
+    /**
+     * Gets all accounts for a portal
+     */
     public function getAccounts() {
         $id = $_REQUEST['id'];
         $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
