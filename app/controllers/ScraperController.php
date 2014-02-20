@@ -35,28 +35,27 @@ class ScraperController extends BaseController {
         $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
         $this->layout = View::make('scraper.portalDetail', 
                           array('accounts' => $accounts));
-        $this->layout->searchForm = View::make('scraper.portal.mymerchinfo');
+        $this->layout->searchForm = $this->postPortalSearchForm($id);
     }
     
     /**
      * Updates portal search form parameters
      */
-    public function getPortalSearchForm() {
-        $id = $_REQUEST['id'];
-        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
-        $this->layout = View::make('scraper.portalDetail', array('accounts' => $accounts));
-    }
-    
-    /**
-     * Updates portal search form parameters
-     */
-    public function postPortalSearchForm() {
-        //$id = $_REQUEST['id'];
-        $portalSearchParams = new PortalSearchParams();
-        $portalSearchParams->loadPortal('1');
+    public function postPortalSearchForm($id = NULL) {
         
-        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
-        $this->layout = View::make('scraper.portalDetail', array('accounts' => $accounts));
+        // Just return the form
+        if (!isset($_POST['id'])) {
+            $searchParams = new PortalSearchParams();
+            $searchParams->load($id);
+            
+            return View::make('scraper.portal.mymerchinfo');
+        }
+        
+        // Otherwise, perform validation and update db record
+        
+//         $portalSearchParams = new PortalSearchParams();
+//         $portalSearchParams->loadPortal('1');
+        
     }
     
     /**

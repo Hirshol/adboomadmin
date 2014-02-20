@@ -15,7 +15,9 @@
                 style="font-size: .8em; float: right"><?='(' .$portal->url . ')'; ?></span>
         </h4>
         <div id="portalDiv<?=$portal->id; ?>"
-            style="padding-left: 10px;">List of Portal Accounts</div>
+            style="padding-left: 10px;">
+            <span class="ui-icon-loading"></span>
+        </div>
     </div>
         <?php endforeach; ?>
     </div>
@@ -33,7 +35,6 @@ $(function(){
             }).success(function( data ) {
                 $('#portalDiv' + id).html(data);
                 $('#portalDiv' + id).enhanceWithin();
-                
             });
     });
 });

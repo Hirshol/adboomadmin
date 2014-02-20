@@ -23,7 +23,9 @@
 <div class="container">
     <div class="header">
         
-        <img src='http://adboomgrp.com/images/logo.png'>
+        <a href="/dashboard">
+            <img src='http://adboomgrp.com/images/logo.png'>
+        </a>
         
         <span style="float:right;">
         @if(!Auth::check())
