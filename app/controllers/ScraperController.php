@@ -22,7 +22,6 @@ class ScraperController extends BaseController {
      * Merchant list might trigger on open for speed
      */
     public function getIndex() {
-        $portal = new Portal();
         $portals = DB::select('select * from portals');
         $this->layout->content = View::make('scraper.home', array('portals' => $portals));
     }
