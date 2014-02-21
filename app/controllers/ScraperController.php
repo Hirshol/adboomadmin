@@ -35,27 +35,34 @@ class ScraperController extends BaseController {
         $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
         $this->layout = View::make('scraper.portalDetail', 
                           array('accounts' => $accounts));
-        $this->layout->searchForm = $this->postPortalSearchForm($id);
+        
+        // Get the portal's search form
+        // This will be different for each portal
+        $psp = new PortalSearchParams();
+        $psp->load($_GET['id']);
+        $this->layout->searchForm = View::make('scraper.portal.mymerchinfo', (array)$psp);
     }
     
     /**
      * Updates portal search form parameters
+     * 
+     * Warning: AJAX ONLY
      */
-    public function postPortalSearchForm($id = NULL) {
-        
-        // Just return the form
-        if (!isset($_POST['id'])) {
-            $searchParams = new PortalSearchParams();
-            $searchParams->load($id);
-            
-            return View::make('scraper.portal.mymerchinfo');
-        }
+    public function postPortalSearchForm() {
         
         // Otherwise, perform validation and update db record
+        $psp = new PortalSearchParams();
         
-//         $portalSearchParams = new PortalSearchParams();
-//         $portalSearchParams->loadPortal('1');
+        foreach ($_POST as $k => $v) {
+            if(substr($k, 0, 1) == '_')
+                continue;
+            $psp->$k = $v;
+        }
         
+        $psp->save();
+        
+        $response['message'] = 'Record Saved';
+        return json_encode($response);
     }
     
     /**

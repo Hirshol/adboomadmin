@@ -2,12 +2,6 @@
 <h3 class="ui-bar ui-bar-a ui-corner-all">Scraper Administration</h3>
 <div class="ui-body">
 
-    <span> 
-        <a href="/scraper/" class="ui-btn ui-btn-inline ui-mini">Portal List</a>
-        <a href="#" class="ui-btn ui-btn-inline ui-mini">Add Portal</a> 
-        <a href="#" class="ui-btn ui-btn-inline ui-mini">Scraper Logs</a>
-    </span>
-
     <div>
         <?php foreach($portals as $portal): ?>
         <div data-role="collapsible" data-inset="false">
