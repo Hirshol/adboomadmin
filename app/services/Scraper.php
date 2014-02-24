@@ -41,7 +41,7 @@ class Scraper {
         // Put together call with uid & pwd
         // TODO: Determine scraper name by portal name
         //$execStr .= "python /Users/hirshol/scripts/scraper.py --uid " . $account->uid . " --pwd " . $account->password;
-        $execStr .= "scraper --uid " . $account->uid . " --pwd " . $account->password;
+        $execStr .= "python scraper.py --uid " . $account->uid . " --pwd " . $account->password;
         
         // Loop through the fields, skipping id.
         foreach ($fields as $k => $v) {
@@ -55,8 +55,6 @@ class Scraper {
         $path = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->name;
         $execStr .= " --path '" . $path . "' &";
         
-        
-        $execStr = 'python /Library/WebServer/CGI-Executables/scraper.py';
         
         // Execute it!
         $response['execResult'] = `$execStr`;
