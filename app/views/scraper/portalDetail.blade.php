@@ -38,7 +38,7 @@
             data: {id: id}
         }).success (function (data) {
             $('#accountDiv' + id).html(data);
-            //$('#accountDiv' + id).enhanceWithin();
+            $('#accountDiv' + id).enhanceWithin();
         });
     });
 </script>

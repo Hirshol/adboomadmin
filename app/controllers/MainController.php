@@ -22,4 +22,10 @@ class MainController extends BaseController {
 		$this->layout->content = View::make('hello');
 		
 	}
+	
+	public function getInfo()
+	{
+		$this->layout->content = View::make('info');
+		
+	}
 }

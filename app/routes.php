@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'MainController@getIndex');
+Route::get('info', 'MainController@getInfo');
 
 Route::controller('users', 'UsersController');
 Route::controller('dashboard', 'DashboardController');

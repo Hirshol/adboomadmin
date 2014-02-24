@@ -5,8 +5,6 @@
     <div class="ui-bar ui-bar-a" style="height:60px">Block B</div></div>
 </div><!-- /grid-a -->
 
-
-
 <?php foreach($accounts as $account): ?>
 <div data-role="collapsible" data-inset="false">
     <h4 class="accountBar" data-id="<?=$account->id; ?>"><?=$account->name ?></h4>
@@ -26,7 +24,7 @@
             data: {id: id}
         }).success (function (data) {
             $('#accountDiv' + id).html(data);
-            //$('#accountDiv' + id).enhanceWithin();
+            $('#accountDiv' + id).enhanceWithin();
         });
     });
 </script>

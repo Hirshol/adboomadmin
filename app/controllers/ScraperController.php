@@ -17,7 +17,7 @@ class ScraperController extends BaseController {
         $this->beforeFilter('auth');
     }
     
-    /*
+    /**
      * Gets the portal and merchant list.
      * Merchant list might trigger on open for speed
      */
@@ -80,7 +80,41 @@ class ScraperController extends BaseController {
     public function getAccount() {
         $id = $_REQUEST['id'];
         $account = DB::select('select * from portal_accounts where id = ?', array($id));
-        $this->layout = View::make('scraper.account', array('account' => $account[0]));
+        $account = $account{0};
+        
+        // Get the portal
+        $portal = DB::select('select * from portals where id = ?', array($account->portal_id));
+        $portal = $portal{0};
+        
+        // Create filepath to scrape files
+        $filepath = "files/scrapes/" . $portal->name . "/" . $account->name;
+        
+        if (!file_exists($filepath))
+            mkdir($filepath, 0755, true);
+        
+        // Get the directory listing of previous scrapes
+        $scrapeFiles = array();
+        if ($handle = opendir($filepath)) {
+            while (false !== ($entry = readdir($handle))) {
+                if(!preg_match('/^[.]{1,2}$/', $entry)) {
+                    $scrapeFiles[] = $entry;
+                }
+            }
+        }
+        
+        // Get the list of scrape files for this account
+        $this->layout = View::make('scraper.account', array('account' => $account, 
+                                'filepath' => $filepath,
+                                'scrapeFiles' => $scrapeFiles));
+        
+    }
+    
+    public function getDownloadScrape() {
+        
+        $headers = array(
+                'Content-Type: text/plain',
+        );
+        return Response::download($_GET['file'], '', $headers);
     }
     
     /**
@@ -88,7 +122,7 @@ class ScraperController extends BaseController {
      *
      */
     public function getAddAccount() {
-        die('addAccount');
+        
     }
     
     /**
@@ -99,9 +133,17 @@ class ScraperController extends BaseController {
     }
     
     /**
-     * This takes scraped data from our injected scraper and sends to processing.
+     * This starts the manual scraping for an account
+     * 
+     * AJAX ONLY
      */
     public function postScrape() {
+        // Launch the scraper
+        $scraper = new Scraper();
+        $response = $scraper->start($_POST['id']);
         
+        $response['status'] = 1;
+        $response['message'] = 'Scraper started.  Check back in a few to see a link to the freshly minted scrape file.';
+        return json_encode($response);
     }
 }

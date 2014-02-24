@@ -31,5 +31,6 @@ $(function(){
                 $('#portalDiv' + id).enhanceWithin();
             });
     });
+
 });
 </script>
