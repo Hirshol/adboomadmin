@@ -142,8 +142,6 @@ class ScraperController extends BaseController {
         $scraper = new Scraper();
         $response = $scraper->start($_POST['id']);
         
-        $response['status'] = 1;
-        $response['message'] = 'Scraper started.  Check back in a few to see a link to the freshly minted scrape file.';
         return json_encode($response);
     }
 }

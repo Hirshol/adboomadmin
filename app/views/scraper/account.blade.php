@@ -33,7 +33,7 @@ $(".btn-start-scrape").click(function(e) {
         data: {id:$(this).attr('data-account-id')}
         }).success(function(data){
             data = $.parseJSON(data);
-            alert(data.message);
+            alert('Request sent...');
         });
 
 });
