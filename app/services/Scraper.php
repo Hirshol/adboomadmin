@@ -28,6 +28,10 @@ class Scraper {
         $json['pwd'] = $account->password;
         $json['path'] = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->name;
         
+        // Make sure write permissions are set for our daemon
+        $cmd = "chmod -R 0777 " . $json['path'];
+        shell_exec($cmd);
+        
         // Get the form params and 
         // Loop through the fields, skipping ID.
         $fields = json_decode($portal->search_params);
@@ -40,9 +44,9 @@ class Scraper {
         
         // Get current time
         
-        // Write the request file to /tmp (where the daemon will be waiting for it.
+        // Write the request file to /temp (where the daemon will be waiting for it.
         $json['request_time'] = date('Ymd-H_i_s'); 
-        $filename = '/tmp/' . $json['request_time'] . '.request.json';
+        $filename = '/temp/' . $json['request_time'] . '.request.json';
         $contents = json_encode($json);
         
         try {
