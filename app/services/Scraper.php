@@ -29,7 +29,7 @@ class Scraper {
         $json['path'] = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->name;
         
         // Make sure write permissions are set for our daemon
-        chmod($json['path'], 0666);
+        chmod($json['path'], 0777);
         
         // Get the form params and 
         // Loop through the fields, skipping ID.

@@ -90,8 +90,8 @@ class ScraperController extends BaseController {
         $filepath = "files/scrapes/" . $portal->name . "/" . $account->name;
         
         if (!file_exists($filepath))
-            mkdir($filepath, 0755, true);
-        
+            mkdir($filepath, 0777, true);
+
         // Get the directory listing of previous scrapes
         $scrapeFiles = array();
         if ($handle = opendir($filepath)) {
