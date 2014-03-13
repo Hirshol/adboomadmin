@@ -22,7 +22,7 @@ class ScraperController extends BaseController {
      * Merchant list might trigger on open for speed
      */
     public function getIndex() {
-        $portals = DB::select('select * from portals');
+        $portals = DB::select('select * from portals order by name');
         $this->layout->content = View::make('scraper.home', array('portals' => $portals));
     }
     
@@ -32,7 +32,7 @@ class ScraperController extends BaseController {
     public function getPortalDetail() {
         
         $id = $_REQUEST['id'];
-        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
+        $accounts = DB::select('select * from portal_accounts where portal_id = ? order by uid', array($id));
         $this->layout = View::make('scraper.portalDetail', 
                           array('accounts' => $accounts));
         
@@ -70,7 +70,7 @@ class ScraperController extends BaseController {
      */
     public function getAccounts() {
         $id = $_REQUEST['id'];
-        $accounts = DB::select('select * from portal_accounts where portal_id = ?', array($id));
+        $accounts = DB::select('select * from portal_accounts where portal_id = ? order by uid', array($id));
         $this->layout = View::make('scraper.accounts', array('accounts' => $accounts));
     }
     
@@ -87,7 +87,7 @@ class ScraperController extends BaseController {
         $portal = $portal{0};
         
         // Create filepath to scrape files
-        $filepath = "files/scrapes/" . $portal->name . "/" . $account->name;
+        $filepath = "files/scrapes/" . $portal->name . "/" . $account->uid;
         
         if (!file_exists($filepath))
             mkdir($filepath, 0777, true);

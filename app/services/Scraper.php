@@ -10,7 +10,7 @@ class Scraper {
      * 
      * The scraper daemon will pick up the request files for processing.
      */
-    public function start ($id) {
+    public function start($id) {
         
         // Get Account
         $sql = 'select * from portal_accounts where id = ?';
@@ -22,11 +22,10 @@ class Scraper {
         $result = DB::select($sql, array($account->portal_id));
         $portal = $result[0];
         
-        // TODO: fixme
-        $json['portal'] = 'mymerchinfo';
+        $json['portal'] = $portal->portal_name;
         $json['uid'] = $account->uid;
-        $json['pwd'] = $account->password;
-        $json['path'] = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->name;
+        $json['pwd'] = $account->pwd;
+        $json['path'] = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->uid;
         
         // Make sure write permissions are set for our daemon
         chmod($json['path'], 0777);
@@ -59,7 +58,7 @@ class Scraper {
         }
         
         $response['status'] = 1;
-        $resposne['message'] = 'Scrape requested... Reload the page in a few minutes to see scraped file link.';
+        $response['message'] = 'Scrape requested... Reload the page in a few minutes to see scraped file link.';
         return $response;
     }
     
@@ -110,7 +109,7 @@ class Scraper {
             }
     
             // Set the path
-            $path = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->name;
+            $path = $_SERVER["DOCUMENT_ROOT"] . "/files/scrapes/" . $portal->name . "/" . $account->uid;
                     $execStr .= " --path '" . $path . "' &";
     
     

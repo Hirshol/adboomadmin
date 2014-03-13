@@ -7,7 +7,7 @@
                 Scraper: <span style="color: green; font-weight: bold; ">Active</span>
             </div>
             <div style="padding: 10px; ">
-                {{ $searchForm }}
+                {{$searchForm}}
             </div>
         </div>
         
@@ -16,11 +16,9 @@
         <div class="ui-bar ui-bar-a" style="height:20px">Portal Accounts</div>
         <div>
             
-            <a href="#" class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-notext">Account</a>
-            
             <?php foreach($accounts as $account): ?>
             <div data-role="collapsible" data-inset="true">
-                <h4 class="accountBar" data-id="<?=$account->id; ?>"><?=$account->name ?></h4>
+                <h4 class="accountBar" data-id="<?=$account->id; ?>"><?=$account->uid ?></h4>
                 <div id="accountDiv<?=$account->id; ?>">Merchant Info</div>
             </div>
             <?php endforeach; ?>

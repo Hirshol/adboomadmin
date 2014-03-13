@@ -1,3 +1,5 @@
+<span id="requestMessage{{ $account->id }}" style="color: green; font-size: 1.2em; font-weight: bold; text-align: center;"></span>
+            
 <span style="float: right;"> 
     <a href="#" class="ui-btn ui-btn-inline ui-mini btn-start-scrape" data-account-id="{{ $account->id }}">Start Scrape</a> 
     <a href="#" class="ui-btn ui-btn-inline ui-mini">Edit</a>
@@ -11,9 +13,8 @@
         </tr>
         <tr>
             <td style="text-align: right; ">Password</td>
-            <td><?=$account->password?></td>
+            <td><?=$account->pwd?></td>
         </tr>
-        
         
         <tr>
             <td style="vertical-align: top; text-align: right;">Scrapes</td>
@@ -35,7 +36,7 @@ $(".btn-start-scrape").click(function(e) {
         data: {id:$(this).attr('data-account-id')}
         }).success(function(data){
             data = $.parseJSON(data);
-            alert('Request sent...');
+			$('#requestMessage'+$(this).attr('data-account-id')).show().html('Scrape request sent...').fadeOut(1000);
         });
 
 });

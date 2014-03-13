@@ -35,7 +35,7 @@
 
 <script>
 $(function () {
-	$('form[name=portalSearchParams').submit(function(e){
+	$('form[name=portalSearchParams]').submit(function(e){
 		e.preventDefault();
 		$.ajax({
 			type: 'POST',
