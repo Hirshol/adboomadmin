@@ -1,9 +1,7 @@
 <span id="requestMessage{{ $account->id }}" style="color: green; font-size: 1.2em; font-weight: bold; text-align: center;"></span>
             
 <span style="float: right;"> 
-    <a href="#" class="ui-btn ui-btn-inline ui-mini btn-start-scrape" data-account-id="{{ $account->id }}">Start Scrape</a> 
-    <a href="#" class="ui-btn ui-btn-inline ui-mini">Edit</a>
-    <a href="#" class="ui-btn ui-btn-inline ui-mini">Delete</a>
+    <a href="#" class="ui-btn ui-btn-inline ui-mini btn-start-scrape" data-account-id="{{ $account->id }}">Start Manual Scrape</a> 
 </span>
 <table>
     <tbody>

@@ -87,7 +87,7 @@ class ScraperController extends BaseController {
         $portal = $portal{0};
         
         // Create filepath to scrape files
-        $filepath = "files/scrapes/" . $portal->name . "/" . $account->uid;
+        $filepath = "files/scrapes/" . $portal->portal_name . "/" . $account->uid;
         
         if (!file_exists($filepath))
             mkdir($filepath, 0777, true);
@@ -144,4 +144,16 @@ class ScraperController extends BaseController {
         
         return json_encode($response);
     }
+    
+    /**
+     * This function allows Alex to pull all the scrape data we've collected
+     */
+    public function getScrape() {
+    
+        $scrapes = DB::select('select * from scrape_data_clean where flag_in_prod = 0');
+    
+        return json_encode($scrapes);
+    }
+    
+    
 }
